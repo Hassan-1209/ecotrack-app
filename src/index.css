@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    @apply bg-forest-50 text-forest-900 dark:bg-forest-950 dark:text-forest-50;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+@layer utilities {
+  /* Premium layered card with subtle gradient + elevated shadow */
+  .card {
+    @apply bg-white dark:bg-forest-800/80 rounded-2xl border border-forest-100/80 dark:border-forest-700/60 transition-all duration-300;
+    background-image: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 60%);
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+  }
+  .dark .card {
+    background-image: linear-gradient(135deg, rgba(58,152,67,0.06) 0%, rgba(0,0,0,0) 60%);
+  }
+  .card-hover {
+    @apply transition-all duration-300;
+  }
+  .card-hover:hover {
+    box-shadow: 0 8px 24px -4px rgb(0 0 0 / 0.08), 0 2px 8px -2px rgb(0 0 0 / 0.04);
+    transform: translateY(-2px);
+  }
+
+  /* Glassmorphism card — for header and overlays */
+  .glass {
+    @apply backdrop-blur-xl bg-white/70 dark:bg-forest-900/60 border border-white/40 dark:border-forest-700/40;
+  }
+
+  /* Hero gradient card — for the main footprint stat */
+  .card-hero {
+    @apply rounded-2xl border border-forest-200/60 dark:border-forest-700/60;
+    background: linear-gradient(135deg, #f0f9f0 0%, #dcf2dc 40%, #bbe4bc 100%);
+  }
+  .dark .card-hero {
+    background: linear-gradient(135deg, #1c421f 0%, #204e23 50%, #246129 100%);
+  }
+
+  /* Accent gradient card — for streak/celebration */
+  .card-accent {
+    @apply rounded-2xl border border-earth-200/60 dark:border-earth-800/60;
+    background: linear-gradient(135deg, #fdf8ed 0%, #f9edcc 50%, #f2d98f 100%);
+  }
+  .dark .card-accent {
+    background: linear-gradient(135deg, #5f3717 0%, #724218 50%, #8c5214 100%);
+  }
+
+  .input-base {
+    @apply w-full rounded-xl border border-forest-200 dark:border-forest-600 bg-white/80 dark:bg-forest-800/80 px-4 py-2.5 text-forest-900 dark:text-forest-50 placeholder-forest-300 dark:placeholder-forest-400 focus:outline-none focus:ring-2 focus:ring-forest-400 focus:border-transparent transition-all;
+  }
+  .btn-primary {
+    @apply bg-forest-500 hover:bg-forest-600 text-white font-medium rounded-xl px-5 py-2.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+    box-shadow: 0 2px 8px -2px rgb(58 152 67 / 0.3);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 4px 12px -2px rgb(58 152 67 / 0.4);
+  }
+  .btn-secondary {
+    @apply bg-forest-100 hover:bg-forest-200 dark:bg-forest-700 dark:hover:bg-forest-600 text-forest-700 dark:text-forest-50 font-medium rounded-xl px-5 py-2.5 transition-all duration-200;
+  }
+  .btn-ghost {
+    @apply text-forest-600 dark:text-forest-200 hover:bg-forest-100 dark:hover:bg-forest-700 font-medium rounded-xl px-4 py-2 transition-colors duration-200;
+  }
+
+  /* Tactile press animation for buttons */
+  .btn-press {
+    @apply transition-all duration-150 active:scale-90;
+  }
+
+  /* Animated number — for footprint stat */
+  .stat-number {
+    @apply font-bold tabular-nums;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Smooth width transition for progress bars */
+  .bar-fill {
+    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+/* Smooth fade-in animation for cards and content */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s ease-out both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out both;
+}
+
+/* Stagger helper — set --i on children */
+.stagger > * {
+  animation: fadeInUp 0.4s ease-out both;
+  animation-delay: calc(var(--i, 0) * 60ms);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #bbe4bc;
+  border-radius: 4px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #246129;
+}
+
+/* Range slider styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 3px;
+  background: #dcf2dc;
+}
+.dark input[type="range"] {
+  background: #204e23;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.15);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.15);
+}
